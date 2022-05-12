@@ -1,29 +1,32 @@
-# todo
+# Vue.js dev task
 
-## Project setup
-```
-yarn install
-```
+Task: build a CRUD (Create, Read, Update, Delete) application which consumes the following API
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+API URL: https://jsonplaceholder.typicode.com/
 
-### Compiles and minifies for production
-```
-yarn build
-```
+RESOURCE: "todos"
 
-### Run your unit tests
-```
-yarn test:unit
-```
+## The minimum requirements for the application are:
 
-### Lints and fixes files
-```
-yarn lint
-```
+* It must use Vue.js
+* It must allow a user to:
+    * See a list of todos
+    * Create a new todo
+    * Update a todo
+    * Delete a todo
+    * Search todos using filters
+* The source code must be available on Github or Gitlab for us to see
+* Your implementation should be of a quality that you consider production-ready.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## We will be looking at:
+
+* The structure of the code
+* The modularity of the code
+* The suitability of the chosen technologies
+* Tests
+* Documentation
+
+## Useful resources:
+
+- https://vuejs.org
+- https://jsonplaceholder.typicode.com/
