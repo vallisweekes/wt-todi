@@ -1,6 +1,6 @@
 # Todo App
 
-Run in your terminal
+Run
 ```
 yarn
 yarn serve
