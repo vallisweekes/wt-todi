@@ -11,7 +11,7 @@ import Todo from '@/model/Todo';
 
 @Component
 export default class App extends Vue {
-  async getTodos() {
+  async getTodos(): Promise<void> {
     try {
       const { data } = await axios.get(
         // eslint-disable-next-line comma-dangle
