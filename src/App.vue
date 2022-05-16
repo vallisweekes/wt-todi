@@ -22,7 +22,10 @@ export default class App extends Vue {
         notes: '',
         createdAt: dayjs()
           .add(i + 4, 'day')
-          .format('DD-MM-YYYY'),
+          .format('YYYY-MM-DD'),
+        dueDate: dayjs()
+          .add(i + 1, 'day')
+          .format('YYYY-MM-DD'),
       }));
       this.$store.commit('getTodoData', modifedTodo);
     } catch (error) {

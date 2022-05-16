@@ -4,13 +4,25 @@
     <div class="modal_content">
       <h2>Add A New Todo</h2>
       <div class="modal_content_form">
-        <div class="form_item input_title">
-          <label>Title</label>
-          <input v-model="newTodo.title" />
-        </div>
-        <div class="form_item input_notes">
-          <label>Notes</label>
-          <textarea v-model="newTodo.notes" />
+        <div class="content_wrapper">
+          <div class="left">
+            <div class="form_item input_title">
+              <label>Title</label>
+              <input v-model="newTodo.title" />
+            </div>
+            <div class="form_item input_notes">
+              <label>Notes</label>
+              <textarea v-model="newTodo.notes" />
+            </div>
+          </div>
+          <div class="right">
+            <label>Due Date</label>
+            <datepicker
+              v-model="newTodo.dueDate"
+              :inline="true"
+              :disabled-dates="disabledDates"
+            ></datepicker>
+          </div>
         </div>
         <div class="btn_wrapper">
           <div class="btn cancel" @click="$emit('close')">Cancel</div>
@@ -24,26 +36,40 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { v4 as uuidv4 } from 'uuid';
+import Datepicker from 'vuejs-datepicker';
 import dayjs from 'dayjs';
+import disableDates from '@/utils/disableDates';
 import TodoModel from '@/model/Todo';
 
-@Component
-export default class Todo extends Vue {
+@Component({
+  components: {
+    Datepicker,
+  },
+})
+export default class AddTodoModal extends Vue {
   @Prop() showModal!: boolean;
 
-  newTodo = { title: '', notes: '' };
+  date = new Date();
+
+  disabledDates = disableDates;
+
+  newTodo = { title: '', notes: '', dueDate: '' };
 
   addTodo(): void {
     const id = uuidv4();
-    const date = dayjs().format('DD/MM/YYYY');
+    const date = dayjs().format('YYYY-MM-DD');
     const todo = new TodoModel(
       id,
       this.newTodo.title,
       this.newTodo.notes,
-      date
+      date,
+      dayjs(this.newTodo.dueDate).format('YYYY-MM-DD')
     );
-    if (this.newTodo.title === '') return;
+    if (this.newTodo.title === '' || this.newTodo.dueDate === '') return;
     this.$store.commit('addNewTodo', todo);
+    this.newTodo.title = '';
+    this.newTodo.notes = '';
+    this.newTodo.dueDate = '';
     this.$emit('close');
   }
 }
@@ -77,14 +103,17 @@ export default class Todo extends Vue {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 30%;
+    width: 50%;
     padding: 2rem;
     background-color: #161616;
     z-index: 3;
     border-radius: 1rem;
-    border: 1px solid #b0b0b0;
+    border: 1px solid #3b3b3b;
     transform: translate(-50%, -50%);
     color: #ffffff;
+    @media screen and (max-width: 768px) {
+      width: 90%;
+    }
 
     h2 {
       font-size: 4rem;
@@ -95,14 +124,18 @@ export default class Todo extends Vue {
       flex-direction: column;
       align-items: center;
       margin-top: 2rem;
+      .content_wrapper {
+        display: flex;
+        width: 80%;
+        .left,
+        .right {
+          width: 50%;
+        }
+      }
       .form_item {
         width: 90%;
         margin-bottom: 2rem;
-        label {
-          display: block;
-          margin-bottom: 1rem;
-          font-size: 2rem;
-        }
+
         input,
         textarea {
           width: 100%;

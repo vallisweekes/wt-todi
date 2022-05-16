@@ -8,6 +8,8 @@ class Todo {
 
   createdAt: string;
 
+  dueDate: string;
+
   completed?: boolean;
 
   userId: number;
@@ -17,6 +19,7 @@ class Todo {
     title: string,
     notes: string,
     createdAt: string,
+    dueDate: string,
     completed = false,
     userId = 1
   ) {
@@ -24,6 +27,7 @@ class Todo {
     this.title = title;
     this.notes = notes;
     this.createdAt = createdAt;
+    this.dueDate = dueDate;
     this.completed = completed;
 
     this.userId = userId;

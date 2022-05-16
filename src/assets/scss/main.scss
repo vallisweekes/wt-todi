@@ -15,10 +15,28 @@ body {
     ;
 }
 
+label {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
 .icon_wrapper {
     width: 2rem;
     .icon {
         width: 100%;
+    }
+}
+
+// Date picker Style
+.vdp-datepicker {
+    top: 0;
+    color: #000000;
+    border-radius: 0.5rem !important;
+    overflow: hidden !important;
+    &__calendar {
+        width: 100% !important;
+        height: 30rem;
     }
 }
 

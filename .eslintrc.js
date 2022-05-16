@@ -19,6 +19,7 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     'comma-dangle': 'off',
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+    'max-len': 'off',
   },
   overrides: [
     {

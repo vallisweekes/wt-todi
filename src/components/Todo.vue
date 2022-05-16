@@ -6,12 +6,10 @@
           <input
             type="checkbox"
             :checked="localTodo.completed"
-            v-model="localTodo.completed"
             @change="completeTodo($event)"
           />
           <span
             class="checkmark"
-            @change="updateTodo($event)"
             :class="{ completed: localTodo.completed }"
           ></span>
         </div>
@@ -21,6 +19,10 @@
         >
           <input v-if="edit" v-model="localTodo.title" />
           <p v-else>{{ localTodo.title }}</p>
+          <div class="due_date_content">
+            <CalendarIcon />
+            <span>Due {{ dueDate }}</span>
+          </div>
         </div>
       </div>
       <div class="right">
@@ -69,8 +71,14 @@
 // eslint-disable-next-line object-curly-newline
 import { Component, Prop, Emit, Watch, Vue } from 'vue-property-decorator';
 import TodoModal from '@/model/Todo';
+import timeDifference from '@/utils/timeDiff';
+import CalendarIcon from './CalendarIcon.vue';
 
-@Component
+@Component({
+  components: {
+    CalendarIcon,
+  },
+})
 export default class Todo extends Vue {
   @Prop() todo!: TodoModal;
 
@@ -145,6 +153,10 @@ export default class Todo extends Vue {
     this.showNotes = !this.showNotes;
   }
 
+  get dueDate(): string {
+    return timeDifference(this.todo.dueDate);
+  }
+
   @Emit('enableEdit')
   editEnable(): number {
     this.edit = true;
@@ -183,6 +195,7 @@ export default class Todo extends Vue {
     display: flex;
     min-height: 8rem;
     .left {
+      position: relative;
       display: flex;
       align-items: center;
       width: 85%;
@@ -236,7 +249,9 @@ export default class Todo extends Vue {
         height: 4rem;
         font-size: 1.3rem;
         cursor: pointer;
-
+        @media screen and (max-width: 768px) {
+          font-size: 1.2rem;
+        }
         &.input_wrapper {
           text-transform: uppercase;
           input {
@@ -248,6 +263,19 @@ export default class Todo extends Vue {
             font-size: inherit;
             color: #ffffff;
             text-transform: uppercase;
+          }
+        }
+        .due_date_content {
+          position: absolute;
+          bottom: 0;
+          display: flex;
+          align-items: center;
+          height: 3rem;
+          text-transform: none;
+          span {
+            display: inline-block;
+            margin-left: 1rem;
+            color: #ff0088;
           }
         }
       }

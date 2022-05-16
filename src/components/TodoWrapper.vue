@@ -3,8 +3,8 @@
   <div class="wrapper">
     <AddTodoModal :showModal="showModal" @close="closeModal" />
     <div class="top_area">
-      <div class="icon__holder">
-        <img src="@/assets/icons/plus.svg" @click="showAddTodoModal" />
+      <div class="icon__holder" @click="showAddTodoModal">
+        <img src="@/assets/icons/plus.svg" />
       </div>
       <p>Add New Todo</p>
     </div>
