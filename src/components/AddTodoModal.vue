@@ -166,8 +166,10 @@ export default class AddTodoModal extends Vue {
           &.cancel {
             background: #000000;
             margin-right: 2rem;
+            border: 1px solid #f0f8ff;
             &:hover {
-              background: #2b2b2b;
+              background: #f0f8ff;
+              color: #000000;
             }
           }
           &.add {
